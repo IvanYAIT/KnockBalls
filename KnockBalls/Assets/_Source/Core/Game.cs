@@ -10,6 +10,7 @@ namespace Core
     public class Game : MonoBehaviour
     {
         private const float TIME_BEFORE_LOSE = 5f;
+        public RoundListener _roundListener;
 
         private bool isLose;
 
@@ -34,7 +35,7 @@ namespace Core
         {
             yield return new WaitForSeconds(TIME_BEFORE_LOSE);
             if (isLose)
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                _roundListener.ShowUI();
         }
     }
 }

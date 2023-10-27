@@ -14,12 +14,13 @@ namespace Cannon.Bullets
         private int _currentAmountOfBullets;
         private BulletView _view;
 
-        [Inject]
+        
         public BulletController(LevelSettings levelSettings, BulletView view)
         {
             _currentAmountOfBullets = levelSettings.AmountOfBullets;
             _view = view;
             _view.SetBulletText($"{_currentAmountOfBullets}");
+            
         }
 
         public void UseBullet()

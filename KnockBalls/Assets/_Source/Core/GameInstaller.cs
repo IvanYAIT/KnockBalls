@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cannon;
 using Cannon.Bullets;
 using Level;
@@ -14,7 +15,8 @@ namespace Core
         [SerializeField] private LevelSettings levelSettings;
         [SerializeField] private BulletView bulletView;
         [SerializeField] private Game game;
-
+        [SerializeField] private RoundSettings rounds;
+        [SerializeField] private Transform levelsPosition;
         public override void InstallBindings()
         {
             Container.Bind<LevelSettings>().FromInstance(levelSettings).AsSingle().NonLazy();
@@ -25,7 +27,9 @@ namespace Core
             Container.Bind<CannonController>().AsSingle().NonLazy();
             Container.Bind<InputListener>().FromInstance(inputListener).AsSingle().NonLazy();
             Container.Bind<Game>().FromInstance(game).AsSingle().NonLazy();
-
+            Container.Bind<RoundSettings>().FromInstance(rounds).AsSingle().NonLazy();
+            Container.Bind<Transform>().FromInstance(levelsPosition).AsSingle().NonLazy();
+            
             Container.BindFactory<Bullet, BulletPool.BulletFactory>().FromComponentInNewPrefab(bulletPrefab);
         }
     }
