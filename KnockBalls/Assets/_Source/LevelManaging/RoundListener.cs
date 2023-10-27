@@ -36,7 +36,7 @@ public class RoundListener : MonoBehaviour
         LastRound.SetActive(false);
         _activeController = new BulletController(_roundSetting[_counter],_view);
         LastRound = Instantiate(_roundSetting[_counter].LevelPrefab, PositionOfLevels);
-        TriggerZone.SetParameters(_roundSetting[_counter].AmountOfBlocks, this);
+        TriggerZone.SetBolckCount(_roundSetting[_counter].AmountOfBlocks);
         _counter++;
     }
     
@@ -44,8 +44,14 @@ public class RoundListener : MonoBehaviour
     {
         LastRound = Instantiate(_roundSetting[0].LevelPrefab, PositionOfLevels);
         _activeController = new BulletController(_roundSetting[0],_view);
-        TriggerZone.SetParameters(_roundSetting[0].AmountOfBlocks, this);
+        TriggerZone.SetListener(this);
+        TriggerZone.SetBolckCount(_roundSetting[0].AmountOfBlocks);
         _counter++;
+    }
+
+    public LevelSettings GetActiveLevelSettings()
+    {
+        return _roundSetting[_counter - 1];
     }
 
     public void ShowUI()

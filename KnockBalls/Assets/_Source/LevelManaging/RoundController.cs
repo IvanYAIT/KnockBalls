@@ -16,9 +16,14 @@ public class RoundController : MonoBehaviour
         BulletLayer = (int)Mathf.Log(BulletMask.value, 2);
     }
 
-    public void SetParameters(int blocksCount, RoundListener roundListener)
+    public void SetBolckCount(int blocksCount)
     {
         _blocksCount = blocksCount;
+        ;
+    }
+
+    public void SetListener(RoundListener roundListener)
+    {
         _roundListener = roundListener;
     }
 
@@ -31,7 +36,10 @@ public class RoundController : MonoBehaviour
             if (_blocksCount == 0)
             {
                 Debug.Log("Go Next Round");
+                
                 _roundListener.GoNextRound();
+                
+                _blocksCount = _roundListener.GetActiveLevelSettings().AmountOfBlocks;
             }
         }
     }
