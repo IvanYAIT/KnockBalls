@@ -20,10 +20,10 @@ public class RoundListener : MonoBehaviour
     
     
     [Inject]
-    public void Construct(RoundSettings rounds, BulletView view, Transform levelsPosition)
+    public void Construct(RoundSettings rounds, BulletController controller, Transform levelsPosition)
     {
         _roundSetting = rounds.Levels;
-        _view = view;
+        _activeController = controller;
         PositionOfLevels = levelsPosition;
         SpawnFirstLevel();
     }
@@ -34,7 +34,7 @@ public class RoundListener : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
         LastRound.SetActive(false);
-        _activeController = new BulletController(_roundSetting[_counter],_view);
+        _activeController.Reset(_roundSetting[_counter]);
         LastRound = Instantiate(_roundSetting[_counter].LevelPrefab, PositionOfLevels);
         TriggerZone.SetBolckCount(_roundSetting[_counter].AmountOfBlocks);
         _counter++;
@@ -43,7 +43,7 @@ public class RoundListener : MonoBehaviour
     public void SpawnFirstLevel()
     {
         LastRound = Instantiate(_roundSetting[0].LevelPrefab, PositionOfLevels);
-        _activeController = new BulletController(_roundSetting[0],_view);
+        _activeController.Reset(_roundSetting[0]);
         TriggerZone.SetListener(this);
         TriggerZone.SetBolckCount(_roundSetting[0].AmountOfBlocks);
         _counter++;
@@ -58,7 +58,4 @@ public class RoundListener : MonoBehaviour
     {
         UI.SetActive(true);
     }
-
-    
-    
 }
