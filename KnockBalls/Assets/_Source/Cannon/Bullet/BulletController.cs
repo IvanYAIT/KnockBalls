@@ -20,6 +20,7 @@ namespace Cannon.Bullets
             _currentAmountOfBullets = levelSettings.AmountOfBullets;
             _view = view;
             _view.SetBulletText($"{_currentAmountOfBullets}");
+            
         }
 
         public void UseBullet()
@@ -33,6 +34,12 @@ namespace Cannon.Bullets
                 return;
             }
 
+            _view.SetBulletText($"{_currentAmountOfBullets}");
+        }
+
+        public void Reset(LevelSettings levelSettings)
+        {
+            _currentAmountOfBullets = levelSettings.AmountOfBullets;
             _view.SetBulletText($"{_currentAmountOfBullets}");
         }
     }
