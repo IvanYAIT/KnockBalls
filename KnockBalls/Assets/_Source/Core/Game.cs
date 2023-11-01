@@ -1,6 +1,6 @@
 using Cannon.Bullets;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -12,30 +12,36 @@ namespace Core
         private const float TIME_BEFORE_LOSE = 5f;
         public RoundListener _roundListener;
 
-        private bool isLose;
-
         [Inject]
-        public void Construct()
+        public void Construct(RoundListener roundListener)
         {
             BulletController.OnBulletEnd += Lose;
+            _roundListener = roundListener;
+            RoundListener.OnLevelWin += Win;
+            RoundListener.OnRoundWin += Win;
         }
+
+
 
         private void OnDestroy()
         {
             BulletController.OnBulletEnd -= Lose;
         }
 
+        private void Win()
+        {
+            StopAllCoroutines();
+        }
+
         private void Lose()
         {
-            isLose = true;
             StartCoroutine(LastChance());
         }
 
         private IEnumerator LastChance()
         {
             yield return new WaitForSeconds(TIME_BEFORE_LOSE);
-            if (isLose)
-                _roundListener.ShowUI();
+            _roundListener.ShowLoseMenu();
         }
     }
 }

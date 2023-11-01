@@ -1,3 +1,4 @@
+using _Source.LevelManaging;
 using Cannon.Bullets;
 using UnityEngine;
 using Zenject;
@@ -21,14 +22,15 @@ namespace Cannon
             _bulletController = bulletController;
             _enviromentLayer = 1<<(int)Mathf.Log(data.EnviromentLayerMask.value, 2);
             BulletController.OnBulletEnd += DisableInput;
+            RoundListener.OnLevelWin += EnableInput;
+            RoundListener.OnRoundWin += DisableInput;
+            LevelTransitionController.OnBtnClick += EnableInput;
         }
 
         void Update()
         {
-            if (( Input.touchCount > 0 || Input.GetMouseButtonDown(0)) && input)
+            if (Input.GetMouseButtonDown(0) && input)
             {
-                //Touch touch = Input.GetTouch(0);
-
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if(Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, _enviromentLayer))
                 {

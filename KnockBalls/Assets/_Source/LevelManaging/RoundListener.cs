@@ -11,13 +11,17 @@ using Zenject;
 
 public class RoundListener : MonoBehaviour
 {
+    public static Action OnLevelWin;
+    public static Action OnRoundWin;
+
     private List<LevelSettings> _activeRoundSetting;
     private Transform PositionOfLevels;
     private int _levelCounter = 0;
     private GameObject _lastRound;
     private BulletController _activeController;
     private BulletView _view;
-    public GameObject UI;
+    public GameObject winScreen;
+    public GameObject loseScreen;
     public RoundController TriggerZone;
     public ScreenFader Fader;
     private int _roundIndex = 0;
@@ -36,12 +40,14 @@ public class RoundListener : MonoBehaviour
     {
         if (_levelCounter == _activeRoundSetting.Count)
         {
+            OnRoundWin?.Invoke();
             ShowUI();
         }
         else
         {
             Fader.FadeIn().OnComplete(() =>
             {
+                OnLevelWin?.Invoke();
                 _lastRound.SetActive(false);
                 _activeController.Reset(_activeRoundSetting[_levelCounter]);
                 _lastRound = Instantiate(_activeRoundSetting[_levelCounter].LevelPrefab, PositionOfLevels);
@@ -81,10 +87,20 @@ public class RoundListener : MonoBehaviour
         SpawnFirstLevel();
     }
     
-    public void ShowUI()
+    public void ShowUI()=>
+        winScreen.SetActive(!winScreen.activeSelf);
+
+
+    public void ShowLoseMenu()=>
+        loseScreen.SetActive(!loseScreen.activeSelf);
+
+
+    public void TurnOffUI()
     {
-        UI.SetActive(!UI.activeSelf);
+        loseScreen.SetActive(false);
+        winScreen.SetActive(false);
     }
+
 
     private void getNextRound()
     {
