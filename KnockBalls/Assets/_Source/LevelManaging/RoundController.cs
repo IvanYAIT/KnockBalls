@@ -19,7 +19,6 @@ public class RoundController : MonoBehaviour
     public void SetBolckCount(int blocksCount)
     {
         _blocksCount = blocksCount;
-        ;
     }
 
     public void SetListener(RoundListener roundListener)
@@ -37,7 +36,7 @@ public class RoundController : MonoBehaviour
             {
                 Debug.Log("Go Next Round");
                 
-                _roundListener.GoNextRound();
+                _roundListener.GoNextLevel();
                 
                 _blocksCount = _roundListener.GetActiveLevelSettings().AmountOfBlocks;
             }
