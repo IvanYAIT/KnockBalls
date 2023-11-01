@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1652cac9187e41247b1bc0f654bba7a2, type: 3}
-  m_Name: LevelSettings
+  m_Name: LevelSettings 3
   m_EditorClassIdentifier: 
-  amountOfBullets: 10
-  levelPrefab: {fileID: 4128571762063124445, guid: 16cc1359524e23847b0576390371400d, type: 3}
-  amountOfBlocks: 8
+  amountOfBullets: 2
+  levelPrefab: {fileID: 4128571762063124445, guid: 550b19fd8cb939c4199d19262f4ffd2e, type: 3}
+  amountOfBlocks: 9

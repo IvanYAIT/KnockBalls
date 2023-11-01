@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1652cac9187e41247b1bc0f654bba7a2, type: 3}
-  m_Name: LevelSettings
+  m_Script: {fileID: 11500000, guid: c390c7542e59ecd4eb08182906a20635, type: 3}
+  m_Name: Round 2
   m_EditorClassIdentifier: 
-  amountOfBullets: 10
-  levelPrefab: {fileID: 4128571762063124445, guid: 16cc1359524e23847b0576390371400d, type: 3}
-  amountOfBlocks: 8
+  _levels:
+  - {fileID: 11400000, guid: f1c96dd4685cbec4590ca7867f1d5615, type: 2}
+  - {fileID: 11400000, guid: 8ceb917150991524784389ccb2e57b58, type: 2}
