@@ -19,7 +19,7 @@ public class RoundListener : MonoBehaviour
     private int _levelCounter = 0;
     private GameObject _lastRound;
     private BulletController _activeController;
-    private BulletView _view;
+    private LevelController _levelController;
     public GameObject winScreen;
     public GameObject loseScreen;
     public RoundController TriggerZone;
@@ -27,9 +27,11 @@ public class RoundListener : MonoBehaviour
     private int _roundIndex;
     
     [Inject]
-    public void Construct(BulletController controller, Transform levelsPosition, ScreenFader fader)
+    public void Construct(BulletController controller, Transform levelsPosition, ScreenFader fader, LevelController levelController)
     {
+        _levelController = levelController;
         _roundIndex = PlayerPrefs.GetInt("Round", 0);
+        _levelController.NextRound(_roundIndex);
         _activeController = controller;
         PositionOfLevels = levelsPosition;
         Fader = fader;
@@ -39,6 +41,7 @@ public class RoundListener : MonoBehaviour
 
     public void GoNextLevel()
     {
+        _levelController.NextLevel();
         if (_levelCounter == _activeRoundSetting.Count)
         {
             OnRoundWin?.Invoke();
@@ -62,9 +65,10 @@ public class RoundListener : MonoBehaviour
 
     public void GoNextRound()
     {
+        PlayerPrefs.SetInt("Round", _roundIndex);
+        _levelController.NextRound(_roundIndex);
         getNextRound();
         SpawnFirstLevel();
-        PlayerPrefs.SetInt("Round", _roundIndex);
     }
     
     public void SpawnFirstLevel()

@@ -30,6 +30,12 @@ namespace Core
             RoundListener.OnRoundWin -= Win;
         }
 
+        public void ResetRound()
+        {
+            PlayerPrefs.SetInt("Round", 0);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         private void Win()
         {
             StopAllCoroutines();
