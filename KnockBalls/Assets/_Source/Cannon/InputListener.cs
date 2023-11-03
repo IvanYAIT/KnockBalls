@@ -41,6 +41,14 @@ namespace Cannon
             }
         }
 
+        private void OnDestroy()
+        {
+            BulletController.OnBulletEnd -= DisableInput;
+            RoundListener.OnLevelWin -= EnableInput;
+            RoundListener.OnRoundWin -= DisableInput;
+            LevelTransitionController.OnBtnClick -= EnableInput;
+        }
+
         public void EnableInput() => input = true;
         public void DisableInput() => input = false;
     }
