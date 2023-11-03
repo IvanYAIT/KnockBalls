@@ -26,8 +26,6 @@ namespace Core
         private void OnDestroy()
         {
             BulletController.OnBulletEnd -= Lose;
-            RoundListener.OnLevelWin -= Win;
-            RoundListener.OnRoundWin -= Win;
         }
 
         private void Win()
