@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amountOfBullets: 16
   levelPrefab: {fileID: 4128571762063124445, guid: ce032ea5376cd9a46a7c3ca8b4bffbf2, type: 3}
-  amountOfBlocks: 96
+  amountOfBlocks: 14
