@@ -46,6 +46,7 @@ public class RoundListener : MonoBehaviour
         {
             OnRoundWin?.Invoke();
             ShowUI();
+            _lastRound.SetActive(false);
         }
         else
         {
