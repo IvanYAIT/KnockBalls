@@ -7,18 +7,23 @@ using UnityEngine;
 public class RoundController : MonoBehaviour
 {
     private int _blocksCount;
+    private int _destroyblockcount;
     private RoundListener _roundListener;
     public LayerMask BulletMask;
-    private int _bulletLayer;
+    private int _blockLayer;
 
     private void Awake()
     {
-        _bulletLayer = (int)Mathf.Log(BulletMask.value, 2);
+        _blockLayer = (int)Mathf.Log(BulletMask.value, 2);
     }
 
     public void SetBolckCount(int blocksCount)
     {
         _blocksCount = blocksCount;
+    }
+    public void SetBolckDestroyCount(int destroyblocksCount)
+    {
+        _destroyblockcount = destroyblocksCount;
     }
 
     public void SetListener(RoundListener roundListener)
@@ -26,16 +31,19 @@ public class RoundController : MonoBehaviour
         _roundListener = roundListener;
     }
 
+    public void DestroyIceBlock()
+    {
+        _destroyblockcount--;
+    }
+
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer != _bulletLayer)
+        if (other.gameObject.layer == _blockLayer)
         {
             _blocksCount--;
-            if (_blocksCount == 0)
+            if (_blocksCount == 0 && _destroyblockcount == 0)
             {
-                Debug.Log("Go Next Round");
-                
                 _roundListener.GoNextLevel();
                 
                 _blocksCount = _roundListener.GetActiveLevelSettings().AmountOfBlocks;

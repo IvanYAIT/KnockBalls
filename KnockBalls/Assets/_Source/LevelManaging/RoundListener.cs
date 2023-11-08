@@ -23,6 +23,7 @@ public class RoundListener : MonoBehaviour
     public RoundController TriggerZone;
     public ScreenFader Fader;
     private int _roundIndex;
+    private MeshDestroy[] _meshDestroys;
     
     [Inject]
     public void Construct(BulletController controller, Transform levelsPosition, ScreenFader fader, LevelController levelController)
@@ -54,7 +55,10 @@ public class RoundListener : MonoBehaviour
                 _lastRound.SetActive(false);
                 _activeController.Reset(_activeRoundSetting[_levelCounter]);
                 _lastRound = Instantiate(_activeRoundSetting[_levelCounter].LevelPrefab, PositionOfLevels);
+                getDestroyBlocks(_lastRound);
                 TriggerZone.SetBolckCount(_activeRoundSetting[_levelCounter].AmountOfBlocks);
+                TriggerZone.SetBolckDestroyCount(_activeRoundSetting[_levelCounter].AmountOfDestroyBlocks);
+                giveRoundControllerMeshes(_meshDestroys, TriggerZone);
                 _levelCounter++;
                 Fader.FadeOut();
             });
@@ -73,9 +77,12 @@ public class RoundListener : MonoBehaviour
     public void SpawnFirstLevel()
     {
         _lastRound = Instantiate(_activeRoundSetting[0].LevelPrefab, PositionOfLevels);
+        getDestroyBlocks(_lastRound);
         _activeController.Reset(_activeRoundSetting[0]);
         TriggerZone.SetListener(this);
         TriggerZone.SetBolckCount(_activeRoundSetting[0].AmountOfBlocks);
+        TriggerZone.SetBolckDestroyCount(_activeRoundSetting[_levelCounter].AmountOfDestroyBlocks);
+        giveRoundControllerMeshes(_meshDestroys, TriggerZone);
         _levelCounter++;
     }
 
@@ -106,6 +113,18 @@ public class RoundListener : MonoBehaviour
         winScreen.SetActive(false);
     }
 
+    private void getDestroyBlocks(GameObject Parent)
+    {
+         _meshDestroys = Parent.transform.GetComponentsInChildren<MeshDestroy>();
+    }
+
+    private void giveRoundControllerMeshes(MeshDestroy[] destroys, RoundController controller)
+    {
+        foreach (MeshDestroy destroy in destroys)
+        {
+            destroy.Controller = controller;
+        }
+    }
 
     private void getNextRound()
     {

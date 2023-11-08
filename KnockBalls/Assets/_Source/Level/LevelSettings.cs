@@ -10,10 +10,12 @@ namespace Level
         [SerializeField] private int amountOfBullets;
         [SerializeField] private GameObject levelPrefab;
         [SerializeField] private int amountOfBlocks;
+        [SerializeField] private int amountOfDestoyBlocks;
 
         public int AmountOfBullets => amountOfBullets;
         public GameObject LevelPrefab => levelPrefab;
         
         public int AmountOfBlocks => amountOfBlocks;
+        public int AmountOfDestroyBlocks => amountOfDestoyBlocks;
     }
 }

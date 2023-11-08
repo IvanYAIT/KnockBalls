@@ -9,11 +9,15 @@ public class MeshDestroy : MonoBehaviour
     private Vector3 edgeVertex = Vector3.zero;
     private Vector2 edgeUV = Vector2.zero;
     private Plane edgePlane = new Plane();
-
+    private int _bulletLayer;
+    private List<PartMesh> _mainlistwithparts = new List<PartMesh>();
+    
     public int CutCascades = 1;
     public float ExplodeForce = 0;
     public LayerMask BulletMask;
-    private int _bulletLayer;
+    public RoundController Controller;
+    public float TimeToLive = 2f;
+    
 
     private void Awake()
     {
@@ -24,6 +28,7 @@ public class MeshDestroy : MonoBehaviour
     {
         if (collision.gameObject.layer == _bulletLayer)
         {
+            Controller.DestroyIceBlock();
             DestroyMesh();
         }
     }
@@ -47,7 +52,8 @@ public class MeshDestroy : MonoBehaviour
             mainPart.Triangles[i] = originalMesh.GetTriangles(i);
 
         parts.Add(mainPart);
-
+        _mainlistwithparts.Add(mainPart);
+        
         for (var c = 0; c < CutCascades; c++)
         {
             for (var i = 0; i < parts.Count; i++)
@@ -63,7 +69,9 @@ public class MeshDestroy : MonoBehaviour
                 subParts.Add(GenerateMesh(parts[i], plane, true));
                 subParts.Add(GenerateMesh(parts[i], plane, false));
             }
+            _mainlistwithparts.AddRange(subParts);
             parts = new List<PartMesh>(subParts);
+            
             subParts.Clear();
         }
 
@@ -73,6 +81,23 @@ public class MeshDestroy : MonoBehaviour
             parts[i].GameObject.GetComponent<Rigidbody>().AddForceAtPosition(parts[i].Bounds.center * ExplodeForce, transform.position);
         }
 
+
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = false;
+        StartCoroutine(Delete(_mainlistwithparts));
+    }
+
+
+
+
+    IEnumerator Delete(List<PartMesh> parts)
+    {
+        yield return new WaitForSeconds(TimeToLive);
+        
+        foreach (PartMesh part in parts)
+        {
+            Destroy(part.GameObject);
+        }
         Destroy(gameObject);
     }
 
