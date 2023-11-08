@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using _Source.LevelManaging;
 using Cannon.Bullets;
 using DG.Tweening;
 using Level;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 public class RoundListener : MonoBehaviour

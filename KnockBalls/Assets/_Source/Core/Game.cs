@@ -1,3 +1,4 @@
+using Audio;
 using Cannon.Bullets;
 using System;
 using System.Collections;
@@ -10,13 +11,15 @@ namespace Core
     public class Game : MonoBehaviour
     {
         private const float TIME_BEFORE_LOSE = 5f;
-        public RoundListener _roundListener;
+        private RoundListener _roundListener;
+        private AudioMediator _audioController;
 
         [Inject]
-        public void Construct(RoundListener roundListener)
+        public void Construct(RoundListener roundListener, AudioMediator audioController)
         {
             BulletController.OnBulletEnd += Lose;
             _roundListener = roundListener;
+            _audioController = audioController;
             RoundListener.OnLevelWin += Win;
             RoundListener.OnRoundWin += Win;
         }
@@ -33,6 +36,7 @@ namespace Core
         public void ResetRound()
         {
             PlayerPrefs.SetInt("Round", 0);
+            _audioController.Expose();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
@@ -49,6 +53,7 @@ namespace Core
         private IEnumerator LastChance()
         {
             yield return new WaitForSeconds(TIME_BEFORE_LOSE);
+            _audioController.Expose();
             _roundListener.ShowLoseMenu();
         }
     }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf63a20418a99740b84676e8537771c, type: 3}
+  m_Name: AudioClipData
+  m_EditorClassIdentifier: 
+  firesVariants:
+  - {fileID: 8300000, guid: c6d5c68dcb0b2ab40b54cc36c388896c, type: 3}
+  - {fileID: 8300000, guid: 29c26fe8d8091644285a0a09d67deeb0, type: 3}
+  - {fileID: 8300000, guid: bdcd678b301e0614dba53f5c61750df1, type: 3}
+  boxHitsVariants:
+  - {fileID: 8300000, guid: 26936c98fa4acae418241b94be380316, type: 3}
+  - {fileID: 8300000, guid: 218a20768a4ae304981b5c7259e93718, type: 3}
+  - {fileID: 8300000, guid: 4e1630bbaeb3e4e42811c6669843c4c3, type: 3}
+  - {fileID: 8300000, guid: a9340594e94885640961bbc4f2680767, type: 3}
