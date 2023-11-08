@@ -3,6 +3,7 @@ using _Source.LevelManaging;
 using Audio;
 using Cannon;
 using Cannon.Bullets;
+using Cannon.Skill;
 using Level;
 using UnityEngine;
 using Zenject;
@@ -25,6 +26,8 @@ namespace Core
         [SerializeField] private AudioData audioData;
         [SerializeField] private AudioClipData audioClip;
         [SerializeField] private AudioSettingsView audioSettingsView;
+        [SerializeField] private SkillView skillView;
+
         public override void InstallBindings()
         {
             Container.Bind<GameLevelsSettings>().FromInstance(gameLevelsSettings).AsSingle().NonLazy();
@@ -40,7 +43,9 @@ namespace Core
             Container.Bind<RoundsInfo>().AsSingle().NonLazy();
             Container.Bind<LevelSettings>().FromInstance(levelSettings).AsSingle().NonLazy();
 
+            Container.Bind<SkillView>().FromInstance(skillView).AsSingle().NonLazy();
             Container.Bind<BulletView>().FromInstance(bulletView).AsSingle().NonLazy();
+            Container.Bind<SkillController>().AsSingle().NonLazy();
             Container.Bind<BulletController>().AsSingle().NonLazy();
             Container.Bind<BulletPool>().AsSingle().NonLazy();
             Container.Bind<CannonData>().FromInstance(cannonData).AsSingle().NonLazy();
