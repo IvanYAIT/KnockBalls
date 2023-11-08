@@ -33,6 +33,7 @@ namespace Cannon.Bullets
         private void OnCollisionEnter(Collision collision)
         {
             AudioMediator.OnBulletHit?.Invoke();
+            Vibration.Vibrate(50);
         }
 
         public void Shoot(Vector3 dir, float force)

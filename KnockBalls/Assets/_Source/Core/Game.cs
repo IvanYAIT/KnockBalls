@@ -36,6 +36,7 @@ namespace Core
         public void ResetRound()
         {
             PlayerPrefs.SetInt("Round", 0);
+            _audioController.Expose();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
