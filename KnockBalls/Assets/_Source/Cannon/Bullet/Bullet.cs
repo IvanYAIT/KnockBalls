@@ -1,3 +1,4 @@
+using Audio;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,14 @@ namespace Cannon.Bullets
         private const int LIFE_TIME = 5;
 
         [SerializeField] private Rigidbody rb;
+        [SerializeField] private LayerMask blockLayerMask;
+
+        private int _blockLayer;
+
+        private void Start()
+        {
+            _blockLayer = (int)Mathf.Log(blockLayerMask.value, 2);
+        }
 
         private void OnEnable()
         {
@@ -19,6 +28,12 @@ namespace Cannon.Bullets
             rb.velocity *= 0;
             transform.rotation = new Quaternion();
             transform.position = new Vector3();
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            AudioMediator.OnBulletHit?.Invoke();
+            Vibration.Vibrate(50);
         }
 
         public void Shoot(Vector3 dir, float force)

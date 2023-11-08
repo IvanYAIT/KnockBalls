@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1652cac9187e41247b1bc0f654bba7a2, type: 3}
   m_Name: LevelSettings 3
   m_EditorClassIdentifier: 
-  amountOfBullets: 2
-  levelPrefab: {fileID: 4128571762063124445, guid: 550b19fd8cb939c4199d19262f4ffd2e, type: 3}
-  amountOfBlocks: 9
+  amountOfBullets: 7
+  levelPrefab: {fileID: 4128571762063124445, guid: 1ae362688f4356741a49b11e4cda60b2, type: 3}
+  amountOfBlocks: 14
