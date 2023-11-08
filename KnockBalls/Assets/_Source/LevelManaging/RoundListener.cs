@@ -19,16 +19,19 @@ public class RoundListener : MonoBehaviour
     private int _levelCounter = 0;
     private GameObject _lastRound;
     private BulletController _activeController;
-    private BulletView _view;
+    private LevelController _levelController;
     public GameObject winScreen;
     public GameObject loseScreen;
     public RoundController TriggerZone;
     public ScreenFader Fader;
-    private int _roundIndex = 0;
+    private int _roundIndex;
     
     [Inject]
-    public void Construct(BulletController controller, Transform levelsPosition, ScreenFader fader)
+    public void Construct(BulletController controller, Transform levelsPosition, ScreenFader fader, LevelController levelController)
     {
+        _levelController = levelController;
+        _roundIndex = PlayerPrefs.GetInt("Round", 0);
+        _levelController.NextRound(_roundIndex);
         _activeController = controller;
         PositionOfLevels = levelsPosition;
         Fader = fader;
@@ -38,10 +41,12 @@ public class RoundListener : MonoBehaviour
 
     public void GoNextLevel()
     {
+        _levelController.NextLevel();
         if (_levelCounter == _activeRoundSetting.Count)
         {
             OnRoundWin?.Invoke();
             ShowUI();
+            _lastRound.SetActive(false);
         }
         else
         {
@@ -61,6 +66,8 @@ public class RoundListener : MonoBehaviour
 
     public void GoNextRound()
     {
+        PlayerPrefs.SetInt("Round", _roundIndex);
+        _levelController.NextRound(_roundIndex);
         getNextRound();
         SpawnFirstLevel();
     }
@@ -82,8 +89,8 @@ public class RoundListener : MonoBehaviour
 
     public void RestartRound()
     {
-        _roundIndex = 0;
-        getNextRound();
+        //_roundIndex = 0;
+        //getNextRound();
         SpawnFirstLevel();
     }
     
@@ -104,7 +111,6 @@ public class RoundListener : MonoBehaviour
 
     private void getNextRound()
     {
-        Debug.Log(_roundIndex);
         _activeRoundSetting = RoundsInfo.RoundSettingsList[_roundIndex].Levels;
         _levelCounter = 0;
         _roundIndex++;

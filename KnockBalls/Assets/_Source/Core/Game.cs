@@ -26,6 +26,14 @@ namespace Core
         private void OnDestroy()
         {
             BulletController.OnBulletEnd -= Lose;
+            RoundListener.OnLevelWin -= Win;
+            RoundListener.OnRoundWin -= Win;
+        }
+
+        public void ResetRound()
+        {
+            PlayerPrefs.SetInt("Round", 0);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private void Win()

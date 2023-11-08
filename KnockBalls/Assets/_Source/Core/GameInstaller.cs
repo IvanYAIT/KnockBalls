@@ -20,9 +20,12 @@ namespace Core
         [SerializeField] private ScreenFader fader;
         [SerializeField] private GameLevelsSettings gameLevelsSettings;
         [SerializeField] private RoundListener roundListener;
+        [SerializeField] private LevelView levelView;
         public override void InstallBindings()
         {
             Container.Bind<GameLevelsSettings>().FromInstance(gameLevelsSettings).AsSingle().NonLazy();
+            Container.Bind<LevelView>().FromInstance(levelView).AsSingle().NonLazy();
+            Container.Bind<LevelController>().AsSingle().NonLazy();
             Container.Bind<RoundsInfo>().AsSingle().NonLazy();
             Container.Bind<LevelSettings>().FromInstance(levelSettings).AsSingle().NonLazy();
             Container.Bind<BulletView>().FromInstance(bulletView).AsSingle().NonLazy();
