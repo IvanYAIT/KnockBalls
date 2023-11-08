@@ -9,11 +9,11 @@ public class RoundController : MonoBehaviour
     private int _blocksCount;
     private RoundListener _roundListener;
     public LayerMask BulletMask;
-    private int BulletLayer;
+    private int _bulletLayer;
 
     private void Awake()
     {
-        BulletLayer = (int)Mathf.Log(BulletMask.value, 2);
+        _bulletLayer = (int)Mathf.Log(BulletMask.value, 2);
     }
 
     public void SetBolckCount(int blocksCount)
@@ -29,7 +29,7 @@ public class RoundController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer != BulletLayer)
+        if (other.gameObject.layer != _bulletLayer)
         {
             _blocksCount--;
             if (_blocksCount == 0)
