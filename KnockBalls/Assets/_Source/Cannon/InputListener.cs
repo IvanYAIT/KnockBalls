@@ -1,4 +1,5 @@
 using _Source.LevelManaging;
+using Audio;
 using Cannon.Bullets;
 using UnityEngine;
 using Zenject;
@@ -25,6 +26,8 @@ namespace Cannon
             RoundListener.OnLevelWin += EnableInput;
             RoundListener.OnRoundWin += DisableInput;
             LevelTransitionController.OnBtnClick += EnableInput;
+            Audio.AudioSettings.OnPanleClose += EnableInput;
+            Audio.AudioSettings.OnPanleOpen += DisableInput;
         }
 
         void Update()
@@ -35,9 +38,10 @@ namespace Cannon
                 if(Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, _enviromentLayer))
                 {
                     _controller.Rotate(_data.CannonTransform, hitInfo);
+                    _bulletController.UseBullet();
+                    _controller.Fire(_data.FirePoint, _data.FireForce);
+                    AudioMediator.OnShoot?.Invoke();
                 }
-                _bulletController.UseBullet();
-                _controller.Fire(_data.FirePoint, _data.FireForce);
             }
         }
 
@@ -47,6 +51,8 @@ namespace Cannon
             RoundListener.OnLevelWin -= EnableInput;
             RoundListener.OnRoundWin -= DisableInput;
             LevelTransitionController.OnBtnClick -= EnableInput;
+            Audio.AudioSettings.OnPanleClose -= EnableInput;
+            Audio.AudioSettings.OnPanleOpen -= DisableInput;
         }
 
         public void EnableInput() => input = true;
