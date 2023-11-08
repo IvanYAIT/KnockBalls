@@ -51,6 +51,7 @@ namespace Cannon
                         _controller.Rotate(_data.CannonTransform, hitInfo);
                         _bulletController.UseBullet();
                         _controller.Fire(_data.FirePoint, _data.FireForce);
+                        Vibration.Vibrate(50);
                         AudioMediator.OnShoot?.Invoke();
                     }
                 }
@@ -100,6 +101,7 @@ namespace Cannon
         {
             _controller.Fire(_data.FirePoint, _data.FireForce);
             AudioMediator.OnShoot?.Invoke();
+            Handheld.Vibrate();
             cooldown = true;
             yield return new WaitForSeconds(_data.SkillShootCooldown);
             cooldown = false;
