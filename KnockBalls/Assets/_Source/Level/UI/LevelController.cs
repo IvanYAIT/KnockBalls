@@ -29,7 +29,7 @@ namespace Level
             _view.SetNextRound(round + 1);
             _currentLevel = 0;
             foreach (Image cell in _view.Cells)
-                cell.color = Color.white;
+                cell.color = Color.clear;
         }
     }
 }
